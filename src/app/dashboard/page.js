@@ -233,31 +233,95 @@ function StatCard({ label, value, color = "text-white" }) {
 
 function IntegrationsView() {
     return (
-        <div className="grid grid-cols-2 gap-8">
-            <div className="glass p-8 rounded-2xl border border-white/5">
-                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                    <Store className="text-primary" /> منصات البيع
-                </h3>
-                <div className="flex flex-col gap-4">
-                    <IntegrationItem name="Shopify" icon={<Zap className="text-[#95bf47]" />} status="Connected" />
-                    <IntegrationItem name="WooCommerce" icon={<Zap className="text-[#21759b]" />} status="Available" disabled />
+        <div className="flex flex-col gap-10">
+            <div className="text-right">
+                <h2 className="text-3xl font-bold mb-2">مركز الربط الذكي</h2>
+                <p className="text-text-muted text-sm">اربط متجرك ومورديك الآن لتبدأ الأتمتة الكاملة.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Sales Platforms */}
+                <div className="glass p-8 rounded-3xl border border-primary/20 bg-primary/5 flex flex-col gap-6">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
+                            <Store className="text-primary" size={24} />
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-bold">منصات البيع</h3>
+                            <p className="text-xs text-text-muted">حيث يتم عرض منتجاتك وإدارة المبيعات</p>
+                        </div>
+                    </div>
+                    
+                    <div className="flex flex-col gap-4">
+                        <IntegrationCard 
+                            name="Shopify" 
+                            desc="الخيار الأول للدروب شيبنج العالمي"
+                            icon={<Zap className="text-[#95bf47]" />} 
+                            status="Connected" 
+                        />
+                        <IntegrationCard 
+                            name="WooCommerce" 
+                            desc="تحكم كامل في متجرك الخاص"
+                            icon={<Zap className="text-[#21759b]" />} 
+                            status="Coming Soon" 
+                            disabled 
+                        />
+                    </div>
+                </div>
+
+                {/* Suppliers */}
+                <div className="glass p-8 rounded-3xl border border-secondary/20 bg-secondary/5 flex flex-col gap-6">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center">
+                            <Package className="text-secondary" size={24} />
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-bold">الموردين</h3>
+                            <p className="text-xs text-text-muted">مصدر المنتجات والشحن التلقائي</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <IntegrationCard 
+                            name="AliExpress" 
+                            desc="أكبر تنوع للمنتجات في العالم"
+                            icon={<Package className="text-orange-500" />} 
+                            status="Connect Now" 
+                        />
+                        <IntegrationCard 
+                            name="CJ Dropshipping" 
+                            desc="أسرع شحن وأفضل جودة"
+                            icon={<Package className="text-blue-500" />} 
+                            status="Connect Now" 
+                        />
+                    </div>
                 </div>
             </div>
-            {/* Same for Suppliers */}
         </div>
     );
 }
 
-function IntegrationItem({ name, icon, status, disabled }) {
+function IntegrationCard({ name, desc, icon, status, disabled }) {
     return (
-        <div className={`flex justify-between items-center p-4 rounded-xl border ${disabled ? 'opacity-50 border-white/5' : 'border-primary/20 bg-primary/5'}`}>
-            <div className="flex items-center gap-3">
-                {icon}
-                <span className="font-medium">{name}</span>
+        <div className={`p-5 rounded-2xl border transition-all flex justify-between items-center ${
+            disabled ? 'opacity-40 grayscale border-white/5 bg-white/2' : 'border-white/10 bg-white/5 hover:border-primary/40'
+        }`}>
+            <div className="flex items-center gap-4 text-right">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
+                    {icon}
+                </div>
+                <div>
+                    <h4 className="font-bold text-sm">{name}</h4>
+                    <p className="text-[10px] text-text-muted">{desc}</p>
+                </div>
             </div>
-            <span className={`text-xs font-bold ${status === 'Connected' ? 'text-primary' : 'text-text-muted'}`}>
-                {status === 'Connected' ? 'متصل ✓' : 'قريباً'}
-            </span>
+            
+            <button className={`px-4 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+                status === 'Connected' ? 'bg-green-500/20 text-green-400' : 
+                status === 'Connect Now' ? 'bg-primary text-black hover:scale-105' : 'bg-white/10 text-text-muted'
+            }`}>
+                {status === 'Connected' ? 'متصل ✓' : status === 'Connect Now' ? 'اربط الآن' : 'قريباً'}
+            </button>
         </div>
     );
 }
