@@ -184,7 +184,7 @@ export default function Dashboard() {
                         {view === 'products' && <ProductsView products={products} />}
                     </motion.div>
                 </AnimatePresence>
-            </main>
+            </div>
         </div>
     );
 }

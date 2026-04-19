@@ -71,7 +71,7 @@ export default function Home() {
                     desc="الذكاء الاصطناعي يدير الطلبات ويقوم بالتحديثات تلقائياً" 
                 />
             </div>
-        </main>
+        </div>
     );
 }
 
