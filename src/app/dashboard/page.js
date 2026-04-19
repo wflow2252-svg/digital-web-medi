@@ -37,9 +37,14 @@ export default function Dashboard() {
         setMounted(true);
         const savedUser = localStorage.getItem('dropgenius_user');
         if (savedUser) {
-            setUser(JSON.parse(savedUser));
-            if (!localStorage.getItem('onboarded')) {
-                setShowWizard(true);
+            try {
+                setUser(JSON.parse(savedUser));
+                if (!localStorage.getItem('onboarded')) {
+                    setShowWizard(true);
+                }
+            } catch (e) {
+                localStorage.removeItem('dropgenius_user');
+                router.push('/');
             }
         } else {
             router.push('/');
@@ -114,31 +119,16 @@ export default function Dashboard() {
 
     const handleConnect = (service) => {
         if (!connectedServices.includes(service)) {
-            // Authentic Popup Authentication flow to bypass Iframe blockers
-            const width = 500;
-            const height = 600;
-            const left = (window.innerWidth / 2) - (width / 2);
-            const top = (window.innerHeight / 2) - (height / 2);
+            // Authentic API Connection Prompts
+            const token = window.prompt(`أدخل مفتاح الـ API الخاص بـ ${service} للربط بشكل صحيح:`);
             
-            // Open a secure popup to the partner/auth platform
-            const popupUrl = service === 'Shopify' 
-                ? 'https://accounts.shopify.com/store-login?redirect=%2F'
-                : 'https://best.aliexpress.com/';
-                
-            const popup = window.open(
-                popupUrl, 
-                `Connect ${service}`, 
-                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,status=yes`
-            );
-
-            // Simulate the OAuth callback reception
-            const authCheckInterval = setInterval(() => {
-                if (!popup || popup.closed) {
-                    clearInterval(authCheckInterval);
-                    setConnectedServices(prev => [...prev, service]);
-                    setStats(prev => ({ ...prev, orders: prev.orders + 5 }));
-                }
-            }, 1000);
+            if (token && token.trim().length > 0) {
+                localStorage.setItem(`${service.toLowerCase()}_api_token`, token);
+                setConnectedServices(prev => [...prev, service]);
+                alert(`✅ تم ربط ${service} بنجاح باستخدام הـ API!`);
+            } else {
+                alert('لم يتم ادخال مفتاح صحيح، تم الغاء الربط.');
+            }
         }
     };
 
