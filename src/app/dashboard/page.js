@@ -21,6 +21,7 @@ import OnboardingWizard from '@/components/OnboardingWizard';
 export default function Dashboard() {
     const [view, setView] = useState('overview');
     const [user, setUser] = useState(null);
+    const [mounted, setMounted] = useState(false);
     const [showWizard, setShowWizard] = useState(false);
     const [hunterActive, setHunterActive] = useState(false);
     const [products, setProducts] = useState([]);
@@ -34,6 +35,7 @@ export default function Dashboard() {
     const router = useRouter();
 
     useEffect(() => {
+        setMounted(true);
         const savedUser = localStorage.getItem('dropgenius_user');
         if (savedUser) {
             setUser(JSON.parse(savedUser));
@@ -45,7 +47,7 @@ export default function Dashboard() {
         }
     }, [router]);
 
-    if (!user) return null;
+    if (!mounted || !user) return null;
 
     const navItems = [
         { id: 'overview', icon: <LayoutDashboard size={20} />, label: 'نظرة عامة' },
@@ -149,15 +151,15 @@ export default function Dashboard() {
                 <header className="flex justify-between items-center mb-10">
                     <div className="flex items-center gap-4">
                         <img 
-                            src={user.picture} 
+                            src={user?.picture || 'https://via.placeholder.com/150'} 
                             alt="Avatar" 
                             className="w-12 h-12 rounded-full border-2 border-primary"
                         />
                         <div>
                             <h2 className="text-2xl font-bold flex items-center gap-2">
-                                مرحباً بك، <span className="gradient-text">{user.name}</span> 👋
+                                مرحباً بك، <span className="gradient-text">{user?.name || 'مستخدم جديد'}</span> 👋
                             </h2>
-                            <p className="text-text-muted text-sm">{user.email}</p>
+                            <p className="text-text-muted text-sm">{user?.email}</p>
                         </div>
                     </div>
                     <div className="flex gap-4">

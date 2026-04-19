@@ -9,12 +9,12 @@ export default function OnboardingWizard({ user, onComplete }) {
     const [logs, setLogs] = useState([]);
 
     const steps = [
-        { msg: `البدء في بناء النظام البيئي لـ ${user.name}...`, delay: 1000 },
-        { msg: `تجهيز البريد الإلكتروني ${user.email} للربط السحابي...`, delay: 1200 },
+        { msg: `البدء في بناء النظام البيئي لـ ${user?.name || 'المستخدم'}...`, delay: 1000 },
+        { msg: `تجهيز البريد الإلكتروني ${user?.email || ''} للربط السحابي...`, delay: 1200 },
         { msg: `إنشاء حساب Shopify Partner تلقائياً...`, delay: 2000 },
         { msg: `استخراج API Keys من AliExpress للتزامن اللحظي...`, delay: 1500 },
         { msg: `تجهيز بيئة عمل CJ Dropshipping والربط بـ Shopify...`, delay: 1800 },
-        { msg: `إنشاء متجر تطوير (Development Store) باسم "${user.name}'s Boutique"...`, delay: 2500 },
+        { msg: `إنشاء متجر تطوير (Development Store) باسم "${user?.name || 'DropGenius'}'s Boutique"...`, delay: 2500 },
         { msg: `تم إعداد كل شيء بنجاح! متجرك وأدواتك جاهزة الآن.`, delay: 1000 }
     ];
 
