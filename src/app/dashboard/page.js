@@ -26,10 +26,10 @@ export default function Dashboard() {
     const [products, setProducts] = useState([]);
     const [connectedServices, setConnectedServices] = useState(['Shopify']);
     const [stats, setStats] = useState({
-        revenue: 12450.50,
-        orders: 432,
+        revenue: 0,
+        orders: 0,
         products: 0,
-        visitors: 8900
+        visitors: 0
     });
     const router = useRouter();
 
@@ -87,6 +87,28 @@ export default function Dashboard() {
             } catch (err) {
                 console.error("Failed to hunt products:", err);
             }
+        }
+    };
+
+    const handlePushToShopify = async (product) => {
+        try {
+            const res = await fetch('/api/shopify/push', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ product })
+            });
+            const result = await res.json();
+            if (result.success) {
+                alert(`✅ تم نقل المنتج بنجاح لمسودات متجرك على Shopify!`);
+                // Add to general logs
+                const pushedProduct = { ...product, id: Date.now() }; // Quick unique id for logs
+                setProducts(prev => [pushedProduct, ...prev]);
+                setStats(prev => ({ ...prev, products: prev.products + 1 }));
+            } else {
+                alert(`❌ خطأ في الرفع: ${result.message}\nتأكد من ترخيص Shopify Partner الخاصة بك.`);
+            }
+        } catch (e) {
+            alert("حدث خطأ في الاتصال بسيرفر الدفع.");
         }
     };
 
@@ -325,10 +347,26 @@ function HunterView({ active, onToggle, foundProducts }) {
                                         <h4 style={{ fontWeight: 700, fontSize: '12px' }}>{product.name}</h4>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
                                             <span style={{ color: '#00f2ff', fontWeight: 700, fontSize: '14px' }}>${product.price} / ≈ {product.priceEgp} ج.م</span>
-                                            <button style={{
-                                                background: '#00f2ff', color: '#000', fontSize: '10px',
-                                                fontWeight: 700, padding: '4px 12px', borderRadius: '8px', border: 'none', cursor: 'pointer'
-                                            }}>رفع للمتجر</button>
+                                            <div style={{ display: 'flex', gap: '8px' }}>
+                                                {product.aliExpressUrl && (
+                                                    <a href={product.aliExpressUrl} target="_blank" rel="noopener noreferrer" style={{
+                                                        background: 'rgba(255,255,255,0.1)', color: '#fff', fontSize: '10px', textDecoration: 'none',
+                                                        fontWeight: 700, padding: '4px 12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center'
+                                                    }}>رؤية في AliExpress</a>
+                                                )}
+                                                <button 
+                                                    onClick={() => handlePushToShopify(product)}
+                                                    disabled={!connectedServices.includes('Shopify')}
+                                                    style={{
+                                                        background: connectedServices.includes('Shopify') ? '#00f2ff' : 'rgba(255,255,255,0.1)', 
+                                                        color: connectedServices.includes('Shopify') ? '#000' : '#a0a0a0', fontSize: '10px',
+                                                        fontWeight: 700, padding: '4px 12px', borderRadius: '8px', border: 'none', 
+                                                        cursor: connectedServices.includes('Shopify') ? 'pointer' : 'not-allowed'
+                                                    }}
+                                                >
+                                                    {connectedServices.includes('Shopify') ? 'رفع لـ Shopify' : 'اربط Shopify أولاً'}
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
