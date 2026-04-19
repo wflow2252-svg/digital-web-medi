@@ -147,7 +147,7 @@ export default function Dashboard() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-10 overflow-y-auto">
+            <div className="flex-1 p-10 overflow-y-auto">
                 <header className="flex justify-between items-center mb-10">
                     <div className="flex items-center gap-4">
                         <img 
