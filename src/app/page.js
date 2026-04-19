@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import GoogleSignIn from '@/components/GoogleSignIn';
 import { Sparkles, ArrowRight, Zap, Target, ShieldCheck } from 'lucide-react';
 
@@ -10,65 +9,85 @@ export default function Home() {
     return (
         <div className="w-full">
             {/* Navbar */}
-            <nav className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50">
-                <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                        <Zap className="text-black fill-black" size={24} />
+            <nav style={{
+                position: 'fixed', top: 0, left: 0, right: 0, padding: '24px',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 50
+            }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{
+                        width: '40px', height: '40px', background: '#00f2ff',
+                        borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    }}>
+                        <Zap style={{ color: '#000', fill: '#000' }} size={24} />
                     </div>
-                    <span className="text-xl font-bold tracking-tighter">DropGenius <span className="text-primary italic">AI</span></span>
+                    <span style={{ fontSize: '20px', fontWeight: 700, letterSpacing: '-0.05em' }}>
+                        DropGenius <span style={{ color: '#00f2ff', fontStyle: 'italic' }}>AI</span>
+                    </span>
                 </div>
-                <div className="hidden md:flex gap-8 text-sm font-medium text-text-muted">
-                    <a href="#features" className="hover:text-primary transition-colors">المميزات</a>
-                    <a href="#" className="hover:text-primary transition-colors">الأسعار</a>
-                    <a href="#" className="hover:text-primary transition-colors">المجتمع</a>
+                <div style={{ display: 'none', gap: '32px', fontSize: '14px', fontWeight: 500, color: '#a0a0a0' }}
+                    className="nav-links">
+                    <a href="#features" style={{ color: '#a0a0a0', textDecoration: 'none', transition: 'color 0.2s' }}>المميزات</a>
+                    <a href="#" style={{ color: '#a0a0a0', textDecoration: 'none', transition: 'color 0.2s' }}>الأسعار</a>
+                    <a href="#" style={{ color: '#a0a0a0', textDecoration: 'none', transition: 'color 0.2s' }}>المجتمع</a>
                 </div>
             </nav>
 
             {/* Hero Section */}
-            <div className="max-w-6xl w-full text-center py-20 relative">
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/20 text-primary text-xs font-bold mb-8">
-                        <Sparkles size={14} />
-                        <span>ثورة الدروب شيبنج القائمة على الذكاء الاصطناعي</span>
-                    </div>
+            <div style={{
+                maxWidth: '1152px', width: '100%', textAlign: 'center',
+                padding: '80px 24px', marginTop: '80px', animation: 'fadeInUp 0.8s ease'
+            }}>
+                <div className="glass" style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    padding: '8px 16px', borderRadius: '9999px',
+                    border: '1px solid rgba(0, 242, 255, 0.2)', color: '#00f2ff',
+                    fontSize: '12px', fontWeight: 700, marginBottom: '32px'
+                }}>
+                    <Sparkles size={14} />
+                    <span>ثورة الدروب شيبنج القائمة على الذكاء الاصطناعي</span>
+                </div>
 
-                    <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-                        ابنِ إمبراطوريتك <br/>
-                        <span className="gradient-text">بضغطة زر واحدة</span>
-                    </h1>
+                <h1 style={{
+                    fontSize: 'clamp(42px, 7vw, 72px)', fontWeight: 800,
+                    marginBottom: '24px', lineHeight: 1.15
+                }}>
+                    ابنِ إمبراطوريتك <br />
+                    <span className="gradient-text">بضغطة زر واحدة</span>
+                </h1>
 
-                    <p className="text-text-muted text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                        أتمتة كاملة لاختيار المنتجات، إنشاء المتاجر، والربط بالموردين. نحن لا نساعدك فقط، بل نبني لك مستقبلك.
-                    </p>
+                <p style={{
+                    color: '#a0a0a0', fontSize: 'clamp(16px, 2vw, 20px)',
+                    maxWidth: '672px', margin: '0 auto 40px', lineHeight: 1.7
+                }}>
+                    أتمتة كاملة لاختيار المنتجات، إنشاء المتاجر، والربط بالموردين. نحن لا نساعدك فقط، بل نبني لك مستقبلك.
+                </p>
 
-                    <GoogleSignIn clientId={GOOGLE_CLIENT_ID} />
+                <GoogleSignIn clientId={GOOGLE_CLIENT_ID} />
 
-                    <p className="mt-6 text-sm text-text-muted opacity-50">
-                        سجل دخولك الآن للبدء في رحلة الـ 10,000$ شهرياً
-                    </p>
-                </motion.div>
+                <p style={{ marginTop: '24px', fontSize: '14px', color: '#a0a0a0', opacity: 0.5 }}>
+                    سجل دخولك الآن للبدء في رحلة الـ 10,000$ شهرياً
+                </p>
             </div>
 
             {/* Features Preview */}
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl w-full mt-20">
-                <FeatureCard 
-                    icon={<Target className="text-primary" />} 
-                    title="سحب ذكي" 
-                    desc="نظام DropLens المتطور لسحب أفضل المنتجات مبيعاً" 
+            <div id="features" style={{
+                display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '24px', maxWidth: '1152px', width: '100%', marginTop: '80px', padding: '0 24px'
+            }}>
+                <FeatureCard
+                    icon={<Target style={{ color: '#00f2ff' }} />}
+                    title="سحب ذكي"
+                    desc="نظام DropLens المتطور لسحب أفضل المنتجات مبيعاً"
                 />
-                <FeatureCard 
-                    icon={<ShieldCheck className="text-primary" />} 
-                    title="ربط آمن" 
-                    desc="اتصال مباشر بـ Shopify و AliExpress بمعايير عالمية" 
+                <FeatureCard
+                    icon={<ShieldCheck style={{ color: '#00f2ff' }} />}
+                    title="ربط آمن"
+                    desc="اتصال مباشر بـ Shopify و AliExpress بمعايير عالمية"
                 />
-                <FeatureCard 
-                    icon={<Zap className="text-primary" />} 
-                    title="أتمتة 100%" 
-                    desc="الذكاء الاصطناعي يدير الطلبات ويقوم بالتحديثات تلقائياً" 
+                <FeatureCard
+                    icon={<Zap style={{ color: '#00f2ff' }} />}
+                    title="أتمتة 100%"
+                    desc="الذكاء الاصطناعي يدير الطلبات ويقوم بالتحديثات تلقائياً"
                 />
             </div>
         </div>
@@ -77,12 +96,20 @@ export default function Home() {
 
 function FeatureCard({ icon, title, desc }) {
     return (
-        <div className="glass p-8 rounded-2xl border border-white/5 hover:border-primary/20 transition-all group">
-            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+        <div className="glass" style={{
+            padding: '32px', borderRadius: '16px',
+            border: '1px solid rgba(255,255,255,0.05)',
+            transition: 'border-color 0.3s, transform 0.3s'
+        }}>
+            <div style={{
+                width: '48px', height: '48px', borderRadius: '12px',
+                background: 'rgba(255,255,255,0.05)', display: 'flex',
+                alignItems: 'center', justifyContent: 'center', marginBottom: '24px'
+            }}>
                 {icon}
             </div>
-            <h3 className="text-xl font-bold mb-3">{title}</h3>
-            <p className="text-sm text-text-muted leading-relaxed">{desc}</p>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px' }}>{title}</h3>
+            <p style={{ fontSize: '14px', color: '#a0a0a0', lineHeight: 1.6 }}>{desc}</p>
         </div>
     );
 }
