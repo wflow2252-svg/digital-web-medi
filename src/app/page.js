@@ -8,7 +8,7 @@ export default function Home() {
     const GOOGLE_CLIENT_ID = "949180865508-md5ums00hoj22qgpmkd6hca2o06722lj.apps.googleusercontent.com";
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        <div className="w-full">
             {/* Navbar */}
             <nav className="fixed top-0 left-0 right-0 p-6 flex justify-between items-center z-50">
                 <div className="flex items-center gap-2">

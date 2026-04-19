@@ -19,12 +19,12 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${inter.className} bg-mesh`}>
+      <body className={`${inter.className} bg-mesh antialiased`}>
           <Script 
             src="https://accounts.google.com/gsi/client" 
             strategy="afterInteractive" 
           />
-          <main id="main-content">
+          <main id="main-content" className="min-h-screen">
             {children}
           </main>
       </body>
