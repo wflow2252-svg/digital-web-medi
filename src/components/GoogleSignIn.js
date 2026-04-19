@@ -59,11 +59,18 @@ export default function GoogleSignIn({ clientId }) {
 
     return (
         <div className="flex flex-col items-center gap-4">
-            {/* The standard Google button container */}
-            <div id="google-signin-btn" className="flex justify-center transition-transform hover:scale-105 min-h-[50px]">
+            {/* The standard Google button container with an isolated empty div for Google logic */}
+            <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', minHeight: '50px', transition: 'transform 0.2s', cursor: 'pointer' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+                <div id="google-signin-btn" style={{ position: 'relative', zIndex: 10, minWidth: '280px', minHeight: '50px' }}></div>
+                
                 {!libLoaded && (
-                    <div className="animate-pulse bg-white/5 border border-white/10 w-[280px] h-[50px] rounded-full flex items-center justify-center">
-                        <span className="text-[10px] text-text-muted">جاري تجهيز بوابة جوجل الحاصة بك...</span>
+                    <div className="animate-pulse" style={{ 
+                        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1,
+                        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                        width: '280px', height: '50px', borderRadius: '9999px',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    }}>
+                        <span style={{ fontSize: '10px', color: '#a0a0a0' }}>جاري تجهيز بوابة جوجل الحاصة بك...</span>
                     </div>
                 )}
             </div>
