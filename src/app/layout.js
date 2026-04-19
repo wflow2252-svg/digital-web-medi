@@ -7,9 +7,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "DropGenius AI | إمبراطورية الدروب شيبنج الذكية",
   description: "أتمتة كاملة لمتجرك الإلكتروني، سحب منتجات رابحة، وربط تلقائي بالموردين.",
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   charset: "UTF-8",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
