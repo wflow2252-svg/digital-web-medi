@@ -12,13 +12,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
-      <head>
+      <body className={`${inter.className} bg-mesh`}>
         <Script 
           src="https://accounts.google.com/gsi/client" 
           strategy="afterInteractive" 
         />
-      </head>
-      <body className={`${inter.className} bg-mesh`}>
         {children}
       </body>
     </html>
