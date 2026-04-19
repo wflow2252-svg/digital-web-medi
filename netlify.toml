@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NEXT_USE_NETLIFY_EDGE = "true"
+  # Add your public env vars here if needed
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID = "949180865508-md5ums00hoj22qgpmkd6hca2o06722lj.apps.googleusercontent.com"
