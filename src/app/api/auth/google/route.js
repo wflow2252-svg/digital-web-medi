@@ -1,7 +1,8 @@
 import { OAuth2Client } from 'google-auth-library';
 import { NextResponse } from 'next/server';
 
-const client = new OAuth2Client(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "949180865508-md5ums00hoj22qgpmkd6hca2o06722lj.apps.googleusercontent.com";
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 export async function POST(request) {
     try {
